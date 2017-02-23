@@ -50,10 +50,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php
-        echo \app\components\MonthPager::widget([
-            'pagination'=>$dataProvider->pagination,
-        ]);
-    ?>
 
 <?php Pjax::end(); ?></div>

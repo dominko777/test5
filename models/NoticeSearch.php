@@ -42,14 +42,9 @@ class NoticeSearch extends Notice
     public function search($params)
     {
         $query = Notice::find();
-        $countQuery = clone $query;
-
-        $months = Notice::find()->groupBy(['MONTH(FROM_UNIXTIME(\'oncreate\'))', 'YEAR(FROM_UNIXTIME(\'oncreate\'))'])->count();
-        $pages = new MonthPagination(['totalCount' => $months]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => $pages,
         ]);
 
         $this->load($params);
@@ -69,10 +64,6 @@ class NoticeSearch extends Notice
         $query->andFilterWhere(['like', 'message', $this->message]);
 
         $query->groupBy(['oncreate']);
-
-        $query->offset($pages->offset)
-        ->limit($pages->limit)
-        ->all();
 
         return $dataProvider;
     }
